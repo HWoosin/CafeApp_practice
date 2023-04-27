@@ -14,7 +14,7 @@ CREATE TABLE cafeMenus (
     price NUMBER(10) NOT NULL,
     menu_type VARCHAR2(20) NOT NULL
 );
-
+select * from cafeMenus;
 drop table cafeMenus;
 
 -- 메뉴 테이블 메뉴 추가

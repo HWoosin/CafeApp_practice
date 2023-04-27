@@ -20,7 +20,7 @@ public class UserLogin implements AppStart{
 			int selection = inputInteger();
 			switch (selection) {
 			case 1://주문
-//				MenuRepository.showMenu();
+				menuRepository.addMenu();
 				break;
 			case 2://포인트조회
 				findpoint();
