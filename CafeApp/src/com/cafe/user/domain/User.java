@@ -2,15 +2,17 @@ package com.cafe.user.domain;
 
 public class User {
 	private String userID;
+	private String userPW;
 	private String userName;
 	private String userPhone;
 	private int userPoint;
 	
 	public User() {}
 
-	public User(String userID, String userName, String userPhone, int userPoint) {
+	public User(String userID, String userPW, String userName, String userPhone, int userPoint) {
 		super();
 		this.userID = userID;
+		this.userPW = userPW;
 		this.userName = userName;
 		this.userPhone = userPhone;
 		this.userPoint = userPoint;
@@ -22,6 +24,14 @@ public class User {
 
 	public void setUserID(String userID) {
 		this.userID = userID;
+	}
+
+	public String getUserPW() {
+		return userPW;
+	}
+
+	public void setUserPW(String userPW) {
+		this.userPW = userPW;
 	}
 
 	public String getUserName() {

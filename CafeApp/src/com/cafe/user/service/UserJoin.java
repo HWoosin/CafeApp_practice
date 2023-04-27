@@ -19,6 +19,8 @@ public class UserJoin implements AppStart{
 		System.out.println("\n====== 회원가입을 진행합니다. ======");
 		System.out.print("♥아이디: ");
 		String ID = inputString();
+		System.out.print("♥비밀번호: ");
+		String PW = inputString();
 		System.out.print("♥이름: ");
 		String name = inputString();
 		System.out.print("♥전화번호: ");
@@ -26,6 +28,7 @@ public class UserJoin implements AppStart{
 
 		User user = new User();
 		user.setUserID(ID);
+		user.setUserPW(PW);
 		user.setUserName(name);
 		user.setUserPhone(phone);
 

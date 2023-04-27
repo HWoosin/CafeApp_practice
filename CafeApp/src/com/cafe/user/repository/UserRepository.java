@@ -13,13 +13,14 @@ public class UserRepository {
 	//회원가입
 	public void addUser(User user) {
 		System.out.println("확인하기::::" +user);
-		String insertSql = "INSERT INTO cafeUser (user_ID, user_name, user_phone)"
-				+ "VALUES(?,?,?)";
+		String insertSql = "INSERT INTO cafeUser (user_ID, user_PW, user_name, user_phone)"
+				+ "VALUES(?,?,?,?)";
 		try (Connection conn = connection.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(insertSql)){	
 			pstmt.setString(1, user.getUserID());
-			pstmt.setString(2, user.getUserName());
-			pstmt.setString(3, user.getUserPhone());
+			pstmt.setString(2, user.getUserPW());
+			pstmt.setString(3, user.getUserName());
+			pstmt.setString(4, user.getUserPhone());
 			
 			if(pstmt.executeUpdate()==1) {
 				System.out.println(user.getUserName()+"님 가입이 완료되었습니다!.");
@@ -33,16 +34,16 @@ public class UserRepository {
 	}
 	//로그인
 	public void loginUser(User user) {
-		String selectsql ="Select user_phone from cafeUser where user_id = ?";
+		String selectsql ="Select user_PW from cafeUser where user_id = ?";
 		try (Connection conn = connection.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(selectsql)){	
 			pstmt.setString(1, user.getUserID());
 			
 			if(pstmt.executeUpdate()==1) {
-				System.out.println(user.getUserName()+"님 가입이 완료되었습니다!.");
+				System.out.println(user.getUserName()+"님 환영합니다!.");
 			}
 			else {
-				System.out.println("회원가입에 실패했습니다.");
+				System.out.println("로그인에 실패했습니다.");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
