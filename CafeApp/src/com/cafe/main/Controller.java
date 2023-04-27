@@ -2,6 +2,7 @@ package com.cafe.main;
 
 import com.cafe.common.AppStart;
 import com.cafe.user.service.UserJoin;
+import com.cafe.user.service.UserLogin;
 
 public class Controller {
 	private AppStart service;
@@ -10,7 +11,7 @@ public class Controller {
 	public void mainMenu(int choose) {
 		switch (choose) {
 		case 1://로그인
-			
+			service = new UserLogin();
 			break;
 		case 2://회원가입
 			service = new UserJoin();

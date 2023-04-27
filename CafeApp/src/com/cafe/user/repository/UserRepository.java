@@ -2,6 +2,7 @@ package com.cafe.user.repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import com.cafe.common.DBConnect;
 import com.cafe.user.domain.User;
@@ -29,24 +30,28 @@ public class UserRepository {
 				System.out.println("회원가입에 실패했습니다.");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 	//로그인
-	public void loginUser(User user) {
-		String selectsql ="Select user_PW from cafeUser where user_id = ?";
+	public int loginUser(User user) {
+		String selectsql ="Select user_PW, user_name from cafeUser where user_id = ?";
 		try (Connection conn = connection.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(selectsql)){	
+				PreparedStatement pstmt = conn.prepareStatement(selectsql);
+				){	
 			pstmt.setString(1, user.getUserID());
+			ResultSet rs = pstmt.executeQuery();
 			
-			if(pstmt.executeUpdate()==1) {
-				System.out.println(user.getUserName()+"님 환영합니다!.");
+			if(rs.next()) {
+				if(rs.getString(1).contentEquals(user.getUserPW()) )
+				System.out.println("\n♥♥♥♥♥"+rs.getString(2)+"님 환영합니다!♥♥♥♥♥");
+				return 1;
 			}
 			else {
 				System.out.println("로그인에 실패했습니다.");
+				return 0;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			return -2;//DB오류
 		}
 	}
 }
