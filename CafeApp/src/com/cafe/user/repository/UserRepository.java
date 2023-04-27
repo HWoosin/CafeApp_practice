@@ -54,5 +54,6 @@ public class UserRepository {
 			return -2;//DB오류
 		}
 	}
+	//휴대폰 번호로 회원확인 후 포인트 보여주기void
 
 }
