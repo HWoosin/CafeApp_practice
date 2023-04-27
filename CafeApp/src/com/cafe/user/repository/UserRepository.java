@@ -54,4 +54,5 @@ public class UserRepository {
 			return -2;//DB오류
 		}
 	}
+
 }

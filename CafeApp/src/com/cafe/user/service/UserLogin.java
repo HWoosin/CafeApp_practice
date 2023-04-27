@@ -9,13 +9,20 @@ import com.cafe.view.AppUI;
 
 public class UserLogin implements AppStart{
 	public final UserRepository userRepository = new UserRepository();
-	
 	User user = new User();
 	@Override
 	public void start() {
 		login();
-//		if()
-		AppUI.UserMenu();
+		if(userRepository.loginUser(user)==1) {
+			AppUI.UserMenu();
+			inputString();
+			return;
+		}
+		else {
+			return;
+		}
+//		System.out.println(userRepository.loginUser(user)); 
+		
 	}
 	
 	public void login() {
@@ -29,7 +36,8 @@ public class UserLogin implements AppStart{
 		user.setUserID(ID);
 		user.setUserPW(PW);
 		
-		userRepository.loginUser(user);
+//		userRepository.loginUser(user);
+		
 	}
 
 }
