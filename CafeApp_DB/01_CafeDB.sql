@@ -10,7 +10,7 @@ select * from cafeUser;
 
 -- 메뉴 테이블 생성
 CREATE TABLE cafeMenus (
-    menu VARCHAR2(40) NOT NULL,
+    menu_name VARCHAR2(40) NOT NULL,
     price NUMBER(10) NOT NULL,
     menu_type VARCHAR2(20) NOT NULL
 );
