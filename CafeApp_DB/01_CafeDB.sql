@@ -84,3 +84,5 @@ INSERT INTO cafeMenus
 VALUES('블루베리에이드', 4000, '에이드');
 INSERT INTO cafeMenus
 VALUES('망고에이드', 4000, '에이드');
+
+commit;

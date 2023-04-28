@@ -54,6 +54,21 @@ public class UserRepository {
 			return -2;//DB오류
 		}
 	}
-	//휴대폰 번호로 회원확인 후 포인트 보여주기void
-
+	//휴대폰 번호로 회원확인 후 포인트 보여주기 void
+	public void phoneNumber(User user) {
+		String selectsql ="Select user_point from cafeUser where user_phone = ?";
+		try (Connection conn = connection.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(selectsql);
+				){	
+			pstmt.setString(1, user.getUserPhone());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				System.out.println("\n♥♥♥♥♥"+rs.getInt(1)+" 점 입니다.");
+			}
+			else {
+				System.out.println("조회에 실패했습니다.");
+			}
+		} catch (Exception e) {
+		}
+	}
 }
