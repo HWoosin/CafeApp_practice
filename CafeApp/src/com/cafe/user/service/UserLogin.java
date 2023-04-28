@@ -19,16 +19,17 @@ public class UserLogin implements AppStart{
 	public void start() {
 		login();
 		if(userRepository.loginUser(user)==1) {
-			AppUI.UserMenu();
+			AppUI.userMenu();
 			int selection = inputInteger();
 			switch (selection) {
 			case 1://주문
 				menuRepository.addMenu();
-				AppUI.OrderMenu();
+				AppUI.orderMenu();
 				selection = inputInteger();
 				switch (selection) {
 				case 1: 
 					chooseMenu();
+					menuRepository.menuHistory(menu);
 					break;
 				case 2: 
 					break;
