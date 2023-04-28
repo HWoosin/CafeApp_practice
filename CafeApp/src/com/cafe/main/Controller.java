@@ -9,7 +9,6 @@ public class Controller {
 	
 	//넘겨주는 값에 따라 실행되는 메뉴를 정해준다.
 	public void mainMenu(int choose) {
-		
 		try {
 			switch (choose) {
 			case 1://로그인
@@ -30,8 +29,10 @@ public class Controller {
 			}
 			service.start();
 			
-		} catch (Exception e) {
-			
 		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 }
