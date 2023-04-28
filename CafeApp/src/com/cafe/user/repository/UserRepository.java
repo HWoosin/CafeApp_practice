@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.cafe.common.DBConnect;
+import com.cafe.menu.domain.Menu;
 import com.cafe.user.domain.User;
 
 public class UserRepository {
@@ -71,4 +72,5 @@ public class UserRepository {
 		} catch (Exception e) {
 		}
 	}
+	
 }

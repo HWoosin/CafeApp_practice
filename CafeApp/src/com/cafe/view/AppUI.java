@@ -11,7 +11,7 @@ public class AppUI {
 		System.out.print("☞ ");
 	}
 	
-	public static void UserMenu() {
+	public static void userMenu() {
 		System.out.println("\n=========== USER MENU ===========");
 		System.out.println("♥♥♥ 1. 주문하기");
 		System.out.println("♥♥♥ 2. 포인트조회");
@@ -21,7 +21,7 @@ public class AppUI {
 		System.out.print("☞ ");
 	}
 	
-	public static void OrderMenu() {
+	public static void orderMenu() {
 		System.out.println("\n=========== ORDER MENU ===========");
 		System.out.println("★★★ 1. 메뉴선택");
 		System.out.println("★★★ 2. 뒤로가기");
