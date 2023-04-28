@@ -40,7 +40,7 @@ public class UserRepository {
 				){	
 			pstmt.setString(1, user.getUserID());
 			ResultSet rs = pstmt.executeQuery();
-			
+
 			if(rs.next()) {
 				if(rs.getString(1).contentEquals(user.getUserPW()) )
 				System.out.println("\n♥♥♥♥♥"+rs.getString(2)+"님 환영합니다!♥♥♥♥♥");
