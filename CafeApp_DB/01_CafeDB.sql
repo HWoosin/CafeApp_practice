@@ -6,8 +6,8 @@ create table cafeUser(
     user_point number(10) default 1000
 );
 select * from cafeUser;
-
-
+SELECT * FROM cafeMenus;
+commit;
 -- 메뉴 테이블 생성
 CREATE TABLE cafeMenus (
     menu_name VARCHAR2(40) NOT NULL,
