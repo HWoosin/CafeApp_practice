@@ -23,12 +23,11 @@ public class Controller {
 			case 4://프로그램 종료
 				System.out.println("♣이용해 주셔서 감사합니다♣");
 				System.exit(0);
-				
+
 			default:
 				System.out.println("잘못된 선택입니다.");
 			}
 			service.start();
-			
 		}
 		catch (Exception e) {
 			// TODO: handle exception

@@ -1,6 +1,7 @@
 package com.cafe.user.service;
 
-import static com.cafe.common.AppInput.*;
+import static com.cafe.common.AppInput.inputInteger;
+import static com.cafe.common.AppInput.inputString;
 
 import com.cafe.common.AppStart;
 import com.cafe.menu.domain.Menu;
@@ -35,8 +36,10 @@ public class UserLogin implements AppStart{
 					System.out.println("잘못된 선택");
 				}
 				break;
+				
 			case 2://포인트조회
 				findpoint();
+				userRepository.phoneNumber(user);
 				break;
 			case 3:
 				
@@ -56,6 +59,7 @@ public class UserLogin implements AppStart{
 //		System.out.println(userRepository.loginUser(user)); 
 		
 	}
+
 
 	public void login() {
 		System.out.println("\n====== 로그인을 진행합니다. ======");
@@ -80,6 +84,7 @@ public class UserLogin implements AppStart{
 		user.setUserPhone(phone);
 		
 	}
+	
 	public void chooseMenu() {
 		System.out.println("주문하실 메뉴를 입력해주세요 ");
 		System.out.print(">>>");
