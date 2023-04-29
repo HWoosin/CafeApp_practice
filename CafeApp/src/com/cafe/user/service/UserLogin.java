@@ -38,10 +38,10 @@ public class UserLogin implements AppStart{
 					switch (selection) {
 					case 1: //메뉴선택
 						chooseMenu();
-						int check =menuRepository.menuHistory(menu,user);//return에 따라 메뉴 확인후에 결제없이 빠져나가기
+						int check =menuRepository.findMenu(menu,user);//return에 따라 메뉴 확인후에 결제없이 빠져나가기
 						if(check == 1) {
+							menuRepository.writeHistory(menu,user);
 							payment();
-//							System.out.println(payment.getHowToPay());
 							menuRepository.paymentMenu(payment,user,menu,order);
 							break;
 						}

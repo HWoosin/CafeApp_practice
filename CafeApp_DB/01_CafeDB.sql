@@ -20,6 +20,7 @@ create table orderMenus (
 select * from orderMenus;
 select max(order_num) from orderMenus;
 delete from orderMenus;
+delete from orderMenus Where order_num = (Select max(order_num) from orderMenus);
 drop table orderMenus;
 
 
