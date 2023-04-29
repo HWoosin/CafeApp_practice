@@ -33,26 +33,33 @@ public class UserLogin implements AppStart{
 				case 1://주문하기
 					menuRepository.addMenu();
 					AppUI.orderMenu();
+					
 					selection = inputInteger();
 					switch (selection) {
 					case 1: //메뉴선택
 						chooseMenu();
-						menuRepository.menuHistory(menu,user);
-						payment();
-//						System.out.println(payment.getHowToPay());
-						menuRepository.paymentMenu(payment,user,menu,order);
-						break;
+						int check =menuRepository.menuHistory(menu,user);//return에 따라 메뉴 확인후에 결제없이 빠져나가기
+						if(check == 1) {
+							payment();
+//							System.out.println(payment.getHowToPay());
+							menuRepository.paymentMenu(payment,user,menu,order);
+							break;
+						}
+						else
+						break;//메뉴end
+						
 					case 2: //뒤로가기
 						break;
 					default:
 						System.out.println("잘못된 선택");
 					}
-					break;
+					break;//주문end
 					
 				case 2://포인트조회
 					findpoint();
 					userRepository.phoneNumber(user);
 					break;
+					
 				case 3://주문조회
 					
 					break;
@@ -65,11 +72,11 @@ public class UserLogin implements AppStart{
 				}
 				
 			}
-			else {
-//				return;
+			else {//로그인실패이므로 while을 중지하고 처음메뉴로 나감
+				return;
 			}
 		}
-//		System.out.println(userRepository.loginUser(user)); 
+
 		
 	}
 

@@ -70,7 +70,7 @@ public class MenuRepository {
 	}
 
 	//메뉴 주문하기 - 주문하자마자 주문내역 테이블에 추가
-	public void menuHistory(Menu menu, User user) {
+	public int menuHistory(Menu menu, User user) {
 		String selectsql ="Select menu_name, price from cafeMenus where menu_name = ?";
 		String insertsql ="Insert into orderMenus (order_num, o_menu_name, order_price, who_order)"
 				+ "values(orderMenus_seq.NEXTVAL, ?, ?, ?) ";
@@ -93,14 +93,15 @@ public class MenuRepository {
 				else {
 					System.out.println("주문에 실패했습니다.");
 				}
+				return 1;//판단해서 빠져나가기 위한 return
 
 			}
 			else {
 				System.out.println("메뉴에 없는 목록입니다.");
-				return;
+				return 0;
 			}
 		} catch (Exception e) {
-
+			return -2;
 		}
 	}
 	//결제 방법 선택하기, 포인트 결제는 포인트에서 차감.
