@@ -6,6 +6,7 @@ import static com.cafe.common.AppInput.inputString;
 import com.cafe.common.AppStart;
 import com.cafe.menu.domain.Menu;
 import com.cafe.menu.repository.MenuRepository;
+import com.cafe.order.domain.Order;
 import com.cafe.payment.Payment;
 import com.cafe.user.domain.User;
 import com.cafe.user.repository.UserRepository;
@@ -17,6 +18,7 @@ public class UserLogin implements AppStart{
 	User user = new User();
 	Menu menu = new Menu();
 	Payment payment = new Payment();
+	Order order = new Order();
 	
 	String ID ="";
 	@Override
@@ -38,7 +40,7 @@ public class UserLogin implements AppStart{
 						menuRepository.menuHistory(menu);
 						payment();
 //						System.out.println(payment.getHowToPay());
-						menuRepository.paymentMenu(payment,user,menu);
+						menuRepository.paymentMenu(payment,user,menu,order);
 						break;
 					case 2: //뒤로가기
 						break;
