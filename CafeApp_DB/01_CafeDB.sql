@@ -6,6 +6,8 @@ create table cafeUser(
     user_point number(10) default 1000
 );
 select * from cafeUser;
+update cafeUser set user_point = 200000 where user_id ='1';
+Select price from cafeMenus where menu_name = '망고에이드';
 SELECT * FROM cafeMenus;
 commit;
 
@@ -16,7 +18,9 @@ create table orderMenus (
     order_price number(10) not null,
     payment varchar2(20) default ' '
 );
+Update orderMenus set payment = '카드결제' where o_menu_name = '망고에이드';
 select * from orderMenus;
+delete from orderMenus;
 drop table orderMenus;
 create sequence orderMenus_seq
     start with 1
@@ -24,12 +28,22 @@ create sequence orderMenus_seq
     nocycle
     nocache;
 insert into orderMenus(order_num, o_menu_name, order_price) 
-values(orderMenus_seq.nextval,'망고에이드',3500);
+values(orderMenus_seq.nextval,'망고에이드',4000);
+
+create table howpayment(
+    howtopay varchar2(20) primary key
+);
+drop table howpayment;
+insert into howpayment values ('카드결제');
+insert into howpayment values ('포인트결제');
+select * from howpayment;
+Select howtopay from howpayment where howtopay ='카드결제';
+commit;
 -- 메뉴 테이블 생성
 CREATE TABLE cafeMenus (
     menu_name VARCHAR2(40) NOT NULL,
     price NUMBER(10) NOT NULL,
-    price VARCHAR2(20) NOT NULL
+    menu_type VARCHAR2(20) NOT NULL
 );
 select * from cafeMenus;
 drop table cafeMenus;

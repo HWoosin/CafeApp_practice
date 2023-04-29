@@ -16,7 +16,7 @@ public class AppUI {
 		System.out.println("♥♥♥ 1. 주문하기");
 		System.out.println("♥♥♥ 2. 포인트조회");
 		System.out.println("♥♥♥ 3. 주문조회");
-		System.out.println("♥♥♥ 4. 메인으로");
+		System.out.println("♥♥♥ 4. 로그아웃");
 		System.out.println("-----------------------------------------");
 		System.out.print("☞ ");
 	}

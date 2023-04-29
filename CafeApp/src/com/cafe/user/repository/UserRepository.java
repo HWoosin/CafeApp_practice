@@ -35,7 +35,7 @@ public class UserRepository {
 	}
 	//로그인
 	public int loginUser(User user) {
-		String selectsql ="Select user_PW, user_name from cafeUser where user_id = ?";
+		String selectsql ="Select user_PW, user_name, user_point from cafeUser where user_id = ?";
 		try (Connection conn = connection.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(selectsql);
 				){	
@@ -45,6 +45,7 @@ public class UserRepository {
 			if(rs.next()) {
 				if(rs.getString(1).contentEquals(user.getUserPW()) )
 				System.out.println("\n♥♥♥♥♥"+rs.getString(2)+"님 환영합니다!♥♥♥♥♥");
+				user.setUserPoint(rs.getInt(3));
 				return 1;
 			}
 			else {
