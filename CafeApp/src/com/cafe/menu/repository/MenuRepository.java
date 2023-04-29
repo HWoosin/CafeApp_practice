@@ -69,41 +69,56 @@ public class MenuRepository {
 		}
 	}
 
-	//메뉴 주문하기 - 주문하자마자 주문내역 테이블에 추가
-	public int menuHistory(Menu menu, User user) {
+	//메뉴 주문하기 - 존재하는 메뉴찾기
+	public int findMenu(Menu menu, User user) {
 		String selectsql ="Select menu_name, price from cafeMenus where menu_name = ?";
-		String insertsql ="Insert into orderMenus (order_num, o_menu_name, order_price, who_order)"
-				+ "values(orderMenus_seq.NEXTVAL, ?, ?, ?) ";
+
 		try (Connection conn = connection.getConnection();
-				Connection conn2 = connection2.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(selectsql);
-				PreparedStatement pstmt2 = conn2.prepareStatement(insertsql)
 				){	
 			pstmt.setString(1, menu.getMenuName());
 			ResultSet rs = pstmt.executeQuery();
-			
 			if(rs.next()) {
-				pstmt2.setString(1,rs.getString(1));
-				pstmt2.setInt(2,rs.getInt(2));
-				pstmt2.setString(3,user.getUserID());
-				if(pstmt2.executeUpdate()==1) {
-					System.out.println("\n♥♥♥♥♥ "+rs.getString(1)+"선택완료! ♥♥♥♥♥\n");
-					menu.setPrice(rs.getInt(2));
-				}
-				else {
-					System.out.println("주문에 실패했습니다.");
-				}
-				return 1;//판단해서 빠져나가기 위한 return
-
+				System.out.println("\n♥♥♥♥♥ "+rs.getString(1)+"선택완료! ♥♥♥♥♥\n");
+				menu.setPrice(rs.getInt(2));
+				return 1;
 			}
 			else {
-				System.out.println("메뉴에 없는 목록입니다.");
-				return 0;
+					System.out.println("메뉴에 없는 목록입니다.");
 			}
+				return 0;//판단해서 빠져나가기 위한 return
 		} catch (Exception e) {
 			return -2;
 		}
 	}
+	
+	//주문목록에 작성하기
+		public int writeHistory(Menu menu, User user) {
+			String insertsql ="Insert into orderMenus (order_num, o_menu_name, order_price, who_order)"
+					+ "values(orderMenus_seq.NEXTVAL, ?, ?, ?) ";
+			
+			try (Connection conn = connection.getConnection();
+					PreparedStatement pstmt = conn.prepareStatement(insertsql)
+					){	
+				pstmt.setString(1, menu.getMenuName());
+				pstmt.setString(1,menu.getMenuName());
+				pstmt.setInt(2,menu.getPrice());
+				pstmt.setString(3,user.getUserID());
+				if(pstmt.executeUpdate()==1) {
+//					menu.setPrice(menu.getPrice());
+					System.out.println("주문목록에 추가되었습니다.");
+					return 1;
+				}
+				else {
+					System.out.println("주문에 실패했습니다.");
+					return 0;
+				}
+
+			} catch (Exception e) {
+				return -2;
+			}
+	}
+		
 	//결제 방법 선택하기, 포인트 결제는 포인트에서 차감.
 	public void paymentMenu(Payment payment, User user, Menu menu, Order order) {
 		String selectsql = "Select howtopay from howpayment where howtopay =?";
@@ -118,30 +133,47 @@ public class MenuRepository {
 			findOrder(order);//주문번호 찾기
 			if(rs.next()) {//검사
 				if(rs.getString(1).equals("카드결제")) {
-					
 					pstmt2.setInt(2,order.getOrderNum());
 					pstmt2.setString(1,rs.getString(1));
 					System.out.println("카드결제 완료!");
-					
+					pstmt2.executeUpdate();
 				}
 				else if (rs.getString(1).equals("포인트결제")) {
 					pstmt2.setInt(2,order.getOrderNum());
 					pstmt2.setString(1,rs.getString(1));
-					payPoint(user,menu);
-					
+					if(payPoint(user,menu) ==1) {
+						pstmt2.executeUpdate();
+					}
+					else {
+//						deleteHistory(); 
+					}
 				}
-				pstmt2.executeUpdate();
+				
 			}
 			else {
-				System.out.println("결제에 실패하였습니다.2");
+				System.out.println("결제에 실패하였습니다.");
 			}
 			
 		} catch (Exception e) {
 			
 		}
 	}
+	
+	//결제 실패시 주문목록에서 삭제
+	public void deleteHistory() {
+		String deleteSql = "delete from orderMenus Where order_num = (Select max(order_num) from orderMenus)";
+		try(Connection conn = connection.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(deleteSql);) {
+			pstmt.executeUpdate();
+			System.out.println("결제 실패로 인해 주문목록에서 사라집니다.");
+
+		} catch (Exception e) {
+			System.out.println("삭제오류입니다.");
+		}
+	}
+	
 	//포인트 결제.
-	public void payPoint(User user, Menu menu) {
+	public int payPoint(User user, Menu menu) {
 		String selectPSql = "Select user_point from cafeUser Where user_id = ?";
 		String selectMSql = "Select price from cafeMenus where menu_name = ?";
 		
@@ -174,15 +206,18 @@ public class MenuRepository {
 				pstmt3.setString(2,user.getUserID());
 				System.out.println("결제완료! 남은 포인트"+result);
 				pstmt3.executeUpdate();
+				return 1;
 			}
 			else {
 				System.out.println("결제실패! 포인트가 부족합니다. 잔액:"+point);
+				deleteHistory();
+				return 0;
 			}
 			
 			
 		} catch (Exception e) {
 			System.out.println("결제실패! DB오류!");
-
+			return -2;
 		}
 	}
 
