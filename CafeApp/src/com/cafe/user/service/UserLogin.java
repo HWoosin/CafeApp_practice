@@ -6,6 +6,8 @@ import static com.cafe.common.AppInput.inputString;
 import com.cafe.common.AppStart;
 import com.cafe.menu.domain.Menu;
 import com.cafe.menu.repository.MenuRepository;
+import com.cafe.order.domain.Order;
+import com.cafe.payment.Payment;
 import com.cafe.user.domain.User;
 import com.cafe.user.repository.UserRepository;
 import com.cafe.view.AppUI;
@@ -15,47 +17,57 @@ public class UserLogin implements AppStart{
 	public final MenuRepository menuRepository = new MenuRepository();
 	User user = new User();
 	Menu menu = new Menu();
+	Payment payment = new Payment();
+	Order order = new Order();
+	
+	String ID ="";
 	@Override
 	public void start() {
 		login();
-		if(userRepository.loginUser(user)==1) {
-			AppUI.userMenu();
-			int selection = inputInteger();
-			switch (selection) {
-			case 1://주문
-				menuRepository.addMenu();
-				AppUI.orderMenu();
-				selection = inputInteger();
+		while(true) {
+//			login();
+			if(userRepository.loginUser(user)==1) {
+				AppUI.userMenu();
+				int selection = inputInteger();
 				switch (selection) {
-				case 1: 
-					chooseMenu();
-					menuRepository.menuHistory(menu);
+				case 1://주문하기
+					menuRepository.addMenu();
+					AppUI.orderMenu();
+					selection = inputInteger();
+					switch (selection) {
+					case 1: //메뉴선택
+						chooseMenu();
+						menuRepository.menuHistory(menu,user);
+						payment();
+//						System.out.println(payment.getHowToPay());
+						menuRepository.paymentMenu(payment,user,menu,order);
+						break;
+					case 2: //뒤로가기
+						break;
+					default:
+						System.out.println("잘못된 선택");
+					}
 					break;
-				case 2: 
+					
+				case 2://포인트조회
+					findpoint();
+					userRepository.phoneNumber(user);
 					break;
+				case 3://주문조회
+					
+					break;
+				case 4://로그아웃
+					
+					return;
+
 				default:
 					System.out.println("잘못된 선택");
 				}
-				break;
 				
-			case 2://포인트조회
-				findpoint();
-				userRepository.phoneNumber(user);
-				break;
-			case 3:
-				
-				break;
-			case 4:
-				
-				break;
-
-			default:
-				System.out.println("잘못된 선택");
 			}
-			return;
-		}
-		else {
-			return;
+			else {
+//				return;
+			}
 		}
 //		System.out.println(userRepository.loginUser(user)); 
 		
@@ -65,7 +77,7 @@ public class UserLogin implements AppStart{
 	public void login() {
 		System.out.println("\n====== 로그인을 진행합니다. ======");
 		System.out.print("♥아이디: ");
-		String ID = inputString();
+		ID = inputString();
 		System.out.print("♥비밀번호: ");
 		String PW = inputString();
 		
@@ -77,13 +89,8 @@ public class UserLogin implements AppStart{
 		
 	}
 	public void findpoint() {
-		System.out.println("포인트조회");
-		System.out.println("♥본인확인을 위한 전화번호를 입력해주세요! ");
-		System.out.print(">>>");
-		String phone = inputString();
-		
-		user.setUserPhone(phone);
-		
+		System.out.println("☆☆☆ 포인트조회 ☆☆☆");
+		user.setUserID(ID);
 	}
 	
 	public void chooseMenu() {
@@ -92,6 +99,24 @@ public class UserLogin implements AppStart{
 		String menuName = inputString();
 		
 		menu.setMenuName(menuName);
+	}
+	public void payment() {
+		System.out.println("결제방법을 선택해주세요 ");
+		System.out.println("[1.카드결제 | 2.포인트 결제]");
+		System.out.print(">>>");
+		int pay = inputInteger();
+		
+		if(pay == 1) {
+			payment.setHowToPay("카드결제");
+			user.setUserID(ID);
+		}
+		else if (pay == 2) {
+			payment.setHowToPay("포인트결제");
+			user.setUserID(ID);
+		}
+		else {
+			System.out.println("잘못된선택");
+		}
 	}
 	
 }
