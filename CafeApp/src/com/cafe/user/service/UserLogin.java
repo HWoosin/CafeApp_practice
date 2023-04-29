@@ -37,7 +37,7 @@ public class UserLogin implements AppStart{
 					switch (selection) {
 					case 1: //메뉴선택
 						chooseMenu();
-						menuRepository.menuHistory(menu);
+						menuRepository.menuHistory(menu,user);
 						payment();
 //						System.out.println(payment.getHowToPay());
 						menuRepository.paymentMenu(payment,user,menu,order);
@@ -89,13 +89,8 @@ public class UserLogin implements AppStart{
 		
 	}
 	public void findpoint() {
-		System.out.println("포인트조회");
-		System.out.println("♥본인확인을 위한 전화번호를 입력해주세요! ");
-		System.out.print(">>>");
-		String phone = inputString();
-		
-		user.setUserPhone(phone);
-		
+		System.out.println("☆☆☆ 포인트조회 ☆☆☆");
+		user.setUserID(ID);
 	}
 	
 	public void chooseMenu() {

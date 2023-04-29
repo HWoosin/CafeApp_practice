@@ -23,7 +23,7 @@ public class MenuRepository {
 	//메뉴전체 불러오기
 	public void addMenu () {
 
-		List<Menu> menuList = new ArrayList<>();
+		List<Menu> menuList = new ArrayList<>();//리스트에 담아오기~
 
 		String menuSql = "SELECT * FROM cafeMenus";
 
@@ -70,10 +70,10 @@ public class MenuRepository {
 	}
 
 	//메뉴 주문하기 - 주문하자마자 주문내역 테이블에 추가
-	public void menuHistory(Menu menu) {
+	public void menuHistory(Menu menu, User user) {
 		String selectsql ="Select menu_name, price from cafeMenus where menu_name = ?";
-		String insertsql ="Insert into orderMenus (order_num, o_menu_name, order_price)"
-				+ "values(orderMenus_seq.NEXTVAL, ?, ?) ";
+		String insertsql ="Insert into orderMenus (order_num, o_menu_name, order_price, who_order)"
+				+ "values(orderMenus_seq.NEXTVAL, ?, ?, ?) ";
 		try (Connection conn = connection.getConnection();
 				Connection conn2 = connection2.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(selectsql);
@@ -85,8 +85,9 @@ public class MenuRepository {
 			if(rs.next()) {
 				pstmt2.setString(1,rs.getString(1));
 				pstmt2.setInt(2,rs.getInt(2));
+				pstmt2.setString(3,user.getUserID());
 				if(pstmt2.executeUpdate()==1) {
-					System.out.println("\n♥♥♥♥♥"+rs.getString(1)+"선택완료!♥♥♥♥♥\n");
+					System.out.println("\n♥♥♥♥♥ "+rs.getString(1)+"선택완료! ♥♥♥♥♥\n");
 					menu.setPrice(rs.getInt(2));
 				}
 				else {
@@ -96,6 +97,7 @@ public class MenuRepository {
 			}
 			else {
 				System.out.println("메뉴에 없는 목록입니다.");
+				return;
 			}
 		} catch (Exception e) {
 

@@ -13,7 +13,8 @@ create table orderMenus (
     order_num number(10) not null,
     o_menu_name varchar2(40) not null,
     order_price number(10) not null,
-    payment varchar2(20) default ' '
+    payment varchar2(20) default ' ',
+    who_order varchar2(20)
 );
 
 select * from orderMenus;

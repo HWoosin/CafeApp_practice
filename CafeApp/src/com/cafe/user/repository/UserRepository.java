@@ -44,7 +44,7 @@ public class UserRepository {
 
 			if(rs.next()) {
 				if(rs.getString(1).contentEquals(user.getUserPW()) )
-				System.out.println("\n♥♥♥♥♥"+rs.getString(2)+"님 환영합니다!♥♥♥♥♥");
+				System.out.println("\n♥♥♥♥♥ "+rs.getString(2)+"님 환영합니다! ♥♥♥♥♥");
 				user.setUserPoint(rs.getInt(3));//유저의 포인트를 끌고 와야 나중에 계산할때 쓸수있다.
 				return 1;
 			}
@@ -58,14 +58,14 @@ public class UserRepository {
 	}
 	//휴대폰 번호로 회원확인 후 포인트 보여주기 void
 	public void phoneNumber(User user) {
-		String selectsql ="Select user_point from cafeUser where user_phone = ?";
+		String selectsql ="Select user_point from cafeUser where user_id = ?";
 		try (Connection conn = connection.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(selectsql);
 				){	
-			pstmt.setString(1, user.getUserPhone());
+			pstmt.setString(1, user.getUserID());
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
-				System.out.println("\n♥♥♥♥♥"+rs.getInt(1)+" 점 입니다.");
+				System.out.println("\n☆☆☆☆☆ "+rs.getInt(1)+" 점 입니다. ☆☆☆☆☆");
 			}
 			else {
 				System.out.println("조회에 실패했습니다.");
