@@ -69,7 +69,7 @@ public class MenuRepository {
 				pstmt2.setString(1,rs.getString(1));
 				pstmt2.setInt(2,rs.getInt(2));
 				if(pstmt2.executeUpdate()==1) {
-					System.out.println("\n♥♥♥♥♥"+rs.getString(1)+"선택완료!");
+					System.out.println("\n♥♥♥♥♥"+rs.getString(1)+"선택완료!♥♥♥♥♥\n");
 					menu.setPrice(rs.getInt(2));
 				}
 				else {
@@ -96,29 +96,20 @@ public class MenuRepository {
 			pstmt.setString(1, payment.getHowToPay());
 			ResultSet rs = pstmt.executeQuery();
 
-//			System.out.println(user.getUserID());
-//			System.out.println(user.getUserPoint());
-//			System.out.println(menu.getMenuName());
-//			System.out.println(menu.getPrice());
-//			System.out.println(rs.getString(1));
 			if(rs.next()) {//검사
 				if(rs.getString(1).equals("카드결제")) {
 					pstmt2.setString(2,menu.getMenuName());
 					pstmt2.setString(1,rs.getString(1));
-					pstmt2.executeUpdate();
 					System.out.println("카드결제 완료!");
 					
 				}
 				else if (rs.getString(1).equals("포인트결제")) {
 					pstmt2.setString(2,menu.getMenuName());
 					pstmt2.setString(1,rs.getString(1));
-//					pstmt2.executeUpdate();
 					payPoint(user,menu);
 					
 				}
-//				System.out.println(payment.getHowToPay());
-//				pstmt2.executeUpdate();
-				return;
+				pstmt2.executeUpdate();
 			}
 			else {
 				System.out.println("결제에 실패하였습니다.2");
@@ -146,26 +137,28 @@ public class MenuRepository {
 			
 			pstmt.setString(1, user.getUserID());
 			ResultSet rs1 = pstmt.executeQuery();//사용자 포인트
-			System.out.println(user.getUserID());
 			rs1.next();
 			
 			pstmt2.setString(1, menu.getMenuName());
 			ResultSet rs2 = pstmt2.executeQuery();//메뉴 가격
 			rs2.next();
 			
-			point = rs1.getInt(1);
+			point = rs1.getInt(1);//값들을 변수에저장해서 계산
 			price = rs2.getInt(1);
 			
-			System.out.println(point);
-			
-			
-			if(point>=price) {
+			if(point>=price) {//포인트 계산로직
+				System.out.println(user.getUserID()+"님이 "+price+"원을 포인트로 계산합니다.");
 				result = point - price;
+				pstmt3.setInt(1,result);//포인트 계산 후 사용자의 잔여 포인트를 업데이트 해줌
+				pstmt3.setString(2,user.getUserID());
 				System.out.println("결제완료! 남은 포인트"+result);
+				pstmt3.executeUpdate();
 			}
 			else {
-				System.out.println("결제실패! 포인트가 부족합니다.");
+				System.out.println("결제실패! 포인트가 부족합니다. 잔액:"+point);
 			}
+			
+			
 		} catch (Exception e) {
 			System.out.println("결제실패! DB오류!");
 
