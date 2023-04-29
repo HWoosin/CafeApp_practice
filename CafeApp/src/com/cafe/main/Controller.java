@@ -17,10 +17,7 @@ public class Controller {
 			case 2://회원가입
 				service = new UserJoin();
 				break;
-			case 3://비회원 주문
-				
-				break;
-			case 4://프로그램 종료
+			case 3://프로그램 종료
 				System.out.println("♣이용해 주셔서 감사합니다♣");
 				System.exit(0);
 
