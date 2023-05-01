@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 
 import com.cafe.common.DBConnect;
 import com.cafe.menu.domain.Menu;
+import com.cafe.menu.domain.MenuList;
+import com.cafe.order.domain.Order;
 import com.cafe.user.domain.User;
 
 public class UserRepository {
@@ -73,5 +75,35 @@ public class UserRepository {
 		} catch (Exception e) {
 		}
 	}
+	
+	public void SelectNumber(MenuList MenuList) {
+		String selectsql ="Select o_menu_name, order_price from orderMenus where who_order = ?";
+		try (Connection conn = connection.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(selectsql);
+				){	
+			pstmt.setString(1, MenuList.getWho_order());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				System.out.println("고객님의 주문 내역 입니다.");
+				System.out.println("\n☆☆☆☆☆ 메뉴명 : "+rs.getString(1)+" ☆☆☆☆☆");
+				System.out.println("☆☆☆☆☆ 가격 : " +rs.getInt(2)+" 원 ☆☆☆☆☆");
+			}
+			else {
+				System.out.println("주문조회에 실패하셨습니다.");
+			}
+		} catch (Exception e) {
+		}
+
+	};
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

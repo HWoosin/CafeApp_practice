@@ -2,9 +2,10 @@ package com.cafe.user.service;
 
 import static com.cafe.common.AppInput.inputInteger;
 import static com.cafe.common.AppInput.inputString;
-
+import com.cafe.menu.domain.MenuList;
 import com.cafe.common.AppStart;
 import com.cafe.menu.domain.Menu;
+import com.cafe.menu.domain.MenuList;
 import com.cafe.menu.repository.MenuRepository;
 import com.cafe.order.domain.Order;
 import com.cafe.payment.Payment;
@@ -19,8 +20,10 @@ public class UserLogin implements AppStart{
 	Menu menu = new Menu();
 	Payment payment = new Payment();
 	Order order = new Order();
+	MenuList MenuList = new MenuList(); 
 	
 	String ID ="";
+	String Who_order="";
 	@Override
 	public void start() {
 		login();
@@ -61,7 +64,8 @@ public class UserLogin implements AppStart{
 					break;
 					
 				case 3://주문조회
-					
+					findorder();
+					userRepository.SelectNumber(MenuList);
 					break;
 				case 4://로그아웃
 					
@@ -99,6 +103,13 @@ public class UserLogin implements AppStart{
 		System.out.println("☆☆☆ 포인트조회 ☆☆☆");
 		user.setUserID(ID);
 	}
+	
+	public void findorder() {
+		System.out.println("☆☆☆ 주문 메뉴를 조회합니다 ☆☆☆");
+		MenuList.setWho_order(ID);
+	}
+	
+	
 	
 	public void chooseMenu() {
 		System.out.println("주문하실 메뉴를 입력해주세요 ");
