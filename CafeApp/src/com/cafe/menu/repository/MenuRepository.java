@@ -100,7 +100,7 @@ public class MenuRepository {
 			try (Connection conn = connection.getConnection();
 					PreparedStatement pstmt = conn.prepareStatement(insertsql)
 					){	
-				pstmt.setString(1, menu.getMenuName());
+				
 				pstmt.setString(1,menu.getMenuName());
 				pstmt.setInt(2,menu.getPrice());
 				pstmt.setString(3,user.getUserID());
