@@ -6,7 +6,7 @@ create table cafeUser(
     user_phone varchar2(20) not null,
     user_point number(10) default 1000
 );
---select * from cafeUser;
+select * from cafeUser;
 --commit;
 --Select price from cafeMenus where menu_name = '망고에이드';
 --Update cafeUser set user_point = 100 where user_id = '1';
