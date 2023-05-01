@@ -92,6 +92,7 @@ public class MenuRepository {
 		}
 	}
 	
+	
 	//주문목록에 작성하기
 		public int writeHistory(Menu menu, User user) {
 			String insertsql ="Insert into orderMenus (order_num, o_menu_name, order_price, who_order)"
@@ -119,6 +120,27 @@ public class MenuRepository {
 			}
 	}
 		
+	//카드결제시 포인트 부여
+	public void givePoint(Menu menu, User user) {
+		String updateSql = "Update cafeUser set user_point = ? where user_id =?";
+		try(Connection conn = connection2.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(updateSql)) {
+
+				int price = menu.getPrice();
+				int earnPoint = (int)(price *0.1);
+				
+				pstmt.setInt(1, user.getUserPoint()+earnPoint);
+				pstmt.setString(2, user.getUserID());
+				
+				if(pstmt.executeUpdate()==1)
+				System.out.println("포인트 "+earnPoint+"점 이 지급되었습니다.");
+			
+		} catch (Exception e) {
+			System.out.println("업데이트 오류!");
+		}
+	}
+			
+		
 	//결제 방법 선택하기, 포인트 결제는 포인트에서 차감.
 	public void paymentMenu(Payment payment, User user, Menu menu, Order order) {
 		String selectsql = "Select howtopay from howpayment where howtopay =?";
@@ -137,6 +159,7 @@ public class MenuRepository {
 					pstmt2.setString(1,rs.getString(1));
 					System.out.println("카드결제 완료!");
 					pstmt2.executeUpdate();
+					givePoint(menu, user);
 				}
 				else if (rs.getString(1).equals("포인트결제")) {
 					pstmt2.setInt(2,order.getOrderNum());
