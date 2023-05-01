@@ -42,14 +42,22 @@ public class UserRepository {
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				if (rs.getString(1).contentEquals(user.getUserPW()))
+				if (rs.getString(1).contentEquals(user.getUserPW())) {
 					System.out.println("\n♥♥♥♥♥ " + rs.getString(2) + "님 환영합니다! ♥♥♥♥♥");
-				user.setUserPoint(rs.getInt(3));// 유저의 포인트를 끌고 와야 나중에 계산할때 쓸수있다.
+					user.setUserPoint(rs.getInt(3));// 유저의 포인트를 끌고 와야 나중에 계산할때 쓸수있다.	
+//					return 1;
+				}
+				else if (!rs.getString(1).contentEquals(user.getUserPW())) {
+					System.out.println("일치하는 비밀번호가 아닙니다.");
+					return 0;
+				}
 				return 1;
-			} else {
-				System.out.println("로그인에 실패했습니다.");
-				return 0;
 			}
+			else {
+				System.out.println("일치하는 아이디가 없습니다.");
+				return -1;
+			}
+
 		} catch (Exception e) {
 			return -2;// DB오류
 		}
@@ -80,12 +88,8 @@ public class UserRepository {
 			ResultSet rs = pstmt.executeQuery();
 //			System.out.println(rs.next());
 			while (rs.next()) {
-				MenuList order = 
-						new MenuList(rs.getInt("order_num"), 
-								rs.getString("o_menu_name"),
-								rs.getInt("order_price"), 
-								rs.getString("payment"), 
-								rs.getString("who_order"));
+				MenuList order = new MenuList(rs.getInt("order_num"), rs.getString("o_menu_name"),
+						rs.getInt("order_price"), rs.getString("payment"), rs.getString("who_order"));
 				orderList.add(order);
 			}
 		} catch (Exception e) {
