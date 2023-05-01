@@ -1,3 +1,4 @@
+-- 카페 메뉴 테이블 생성
 create table cafeUser(
     user_ID varchar2(20) primary key,
     user_PW varchar2(20) not null,
@@ -23,14 +24,14 @@ delete from orderMenus;
 delete from orderMenus Where order_num = (Select max(order_num) from orderMenus);
 drop table orderMenus;
 
-
+-- 주문내역 시퀀스 생성
 create sequence orderMenus_seq
     start with 1
     increment by 1
     nocycle
     nocache;
 
-
+-- 결제방법 테이블 생성
 create table howpayment(
     howtopay varchar2(20) primary key
 );
@@ -40,6 +41,7 @@ insert into howpayment values ('포인트결제');
 select * from howpayment;
 
 commit;
+
 -- 메뉴 테이블 생성
 CREATE TABLE cafeMenus (
     menu_name VARCHAR2(40) NOT NULL,
