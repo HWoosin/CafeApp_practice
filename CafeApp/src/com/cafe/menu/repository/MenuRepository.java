@@ -174,6 +174,7 @@ public class MenuRepository {
 			}
 			else {
 				System.out.println("결제에 실패하였습니다.");
+				deleteHistory();
 			}
 			
 		} catch (Exception e) {
