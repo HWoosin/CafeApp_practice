@@ -42,7 +42,6 @@ public class MenuRepository {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
-
 		int count = menuList.size();
 		if(count > 0) {
 			System.out.print("\n=============== 전체 메뉴 목록 ===============\n");
