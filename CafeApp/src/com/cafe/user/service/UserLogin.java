@@ -64,8 +64,8 @@ public class UserLogin implements AppStart{
 					break;
 					
 				case 3://주문조회
-					findorder();
-					userRepository.SelectNumber(MenuList);
+//					findorder();
+					userRepository.SelectNumber(MenuList, user);
 					break;
 				case 4://로그아웃
 					
@@ -108,7 +108,6 @@ public class UserLogin implements AppStart{
 		System.out.println("☆☆☆ 주문 메뉴를 조회합니다 ☆☆☆");
 		MenuList.setWho_order(ID);
 	}
-	
 	
 	
 	public void chooseMenu() {
