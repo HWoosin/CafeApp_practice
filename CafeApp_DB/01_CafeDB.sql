@@ -33,7 +33,7 @@ insert into howpayment values ('포인트결제');
 
 -- 메뉴 테이블 생성
 CREATE TABLE cafeMenus (
-    menu_name VARCHAR2(40) NOT NULL,
+    menu_name VARCHAR2(40) primary key,
     price NUMBER(10) NOT NULL,
     menu_type VARCHAR2(20) NOT NULL
 );
