@@ -63,7 +63,7 @@ public class UserRepository {
 		}
 	}
 
-	// 휴대폰 번호로 회원확인 후 포인트 보여주기 void
+	// 가지고있는 user객체의 아이디정보를 사용해서 포인트를 불러온다.
 	public void phoneNumber(User user) {
 		String selectsql = "Select user_point from cafeUser where user_id = ?";
 		try (Connection conn = connection.getConnection();
