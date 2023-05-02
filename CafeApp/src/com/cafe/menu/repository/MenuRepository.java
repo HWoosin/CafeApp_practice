@@ -91,7 +91,6 @@ public class MenuRepository {
 		}
 	}
 	
-	
 	//주문목록에 작성하기
 		public int writeHistory(Menu menu, User user) {
 			String insertsql ="Insert into orderMenus (order_num, o_menu_name, order_price, who_order)"
@@ -178,7 +177,7 @@ public class MenuRepository {
 			}
 			
 		} catch (Exception e) {
-			
+			deleteHistory();
 		}
 	}
 	
@@ -240,6 +239,7 @@ public class MenuRepository {
 			
 		} catch (Exception e) {
 			System.out.println("결제실패! DB오류!");
+			deleteHistory();
 			return -2;
 		}
 	}
