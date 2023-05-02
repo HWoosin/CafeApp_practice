@@ -9,7 +9,7 @@ public class MenuList {
 	private String who_order;
 	
 	
-	public MenuList() {
+	public MenuList() { 
 		
 	}
 
@@ -21,7 +21,6 @@ public class MenuList {
 		this.payment = payment;
 		this.who_order = who_order;
 	}
-
 
 
 	public int getOrder_num() {
