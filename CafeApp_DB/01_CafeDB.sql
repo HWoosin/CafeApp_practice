@@ -6,10 +6,6 @@ create table cafeUser(
     user_phone varchar2(20) not null,
     user_point number(10) default 1000
 );
-select * from cafeUser;
---commit;
---Select price from cafeMenus where menu_name = '망고에이드';
---Update cafeUser set user_point = 100 where user_id = '1';
 
 -- 주문내역 테이블 생성
 create table orderMenus (
@@ -19,12 +15,6 @@ create table orderMenus (
     payment varchar2(20) default ' ',
     who_order varchar2(20)
 );
-
---select * from orderMenus;
---select max(order_num) from orderMenus;
---delete from orderMenus;
---delete from orderMenus Where order_num = (Select max(order_num) from orderMenus);
---drop table orderMenus;
 
 -- 주문내역 시퀀스 생성
 create sequence orderMenus_seq
@@ -37,12 +27,9 @@ create sequence orderMenus_seq
 create table howpayment(
     howtopay varchar2(20) primary key
 );
-drop table howpayment;
+-- 결제방법 테이블 데이터 삽입
 insert into howpayment values ('카드결제');
 insert into howpayment values ('포인트결제');
---select * from howpayment;
-
-commit;
 
 -- 메뉴 테이블 생성
 CREATE TABLE cafeMenus (
@@ -50,8 +37,6 @@ CREATE TABLE cafeMenus (
     price NUMBER(10) NOT NULL,
     menu_type VARCHAR2(20) NOT NULL
 );
-select * from cafeMenus;
---drop table cafeMenus;
 
 -- 메뉴 테이블 메뉴 추가
 INSERT INTO cafeMenus
