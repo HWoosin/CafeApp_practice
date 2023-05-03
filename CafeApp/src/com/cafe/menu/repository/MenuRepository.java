@@ -105,7 +105,11 @@ public class MenuRepository {
 				pstmt.setString(3,user.getUserID());
 				if(pstmt.executeUpdate()==1) {
 //					menu.setPrice(menu.getPrice());
-					System.out.println("주문목록에 추가되었습니다.");
+					System.out.println(". ∧＿∧\r\n"
+							+ "(　-ω- ) 주문목록에 추가되었습니다〜\r\n"
+							+ "( つ旦O\r\n"
+							+ "と＿)_)\r\n"
+							+ "");
 					return 1;
 				}
 				else {
@@ -187,7 +191,13 @@ public class MenuRepository {
 		try(Connection conn = connection.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(deleteSql);) {
 			pstmt.executeUpdate();
-			System.out.println("결제 실패로 인해 주문목록에서 사라집니다.");
+			System.out.println("＿人人人人人人人人人人人人人人人人＿\r\n"
+					+ "＞　결제실패로 주문목록에서 사라집니다.　＜\r\n"
+					+ "￣Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y￣\r\n"
+					+ "　　　┐( ∵ )┌\r\n"
+					+ "　 　 ( 　) 　\r\n"
+					+ "　　 　　┘|\r\n"
+					+ "");
 
 		} catch (Exception e) {
 			System.out.println("삭제오류입니다.");

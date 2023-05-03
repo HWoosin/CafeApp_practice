@@ -18,7 +18,10 @@ public class Controller {
 				service = new UserJoin();
 				break;
 			case 3://프로그램 종료
-				System.out.println("♣이용해 주셔서 감사합니다♣");
+				System.out.println(" .　∧∧　■\r\n"
+						+ "　(＾ω＾)／　♣이용해 주셔서 감사합니다♣\r\n"
+						+ "　＜　　/\r\n"
+						+ "　　∪∪\r\n");
 				System.exit(0);
 
 			default:
