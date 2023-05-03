@@ -2,7 +2,7 @@ package com.cafe.main;
 
 import com.cafe.common.AppStart;
 import com.cafe.user.service.UserJoin;
-import com.cafe.user.service.UserLogin;
+import com.cafe.user.service.UserMenu;
 
 public class Controller {
 	private AppStart service;
@@ -12,7 +12,7 @@ public class Controller {
 		try {
 			switch (choose) {
 			case 1://로그인
-				service = new UserLogin();
+				service = new UserMenu();
 				break;
 			case 2://회원가입
 				service = new UserJoin();
