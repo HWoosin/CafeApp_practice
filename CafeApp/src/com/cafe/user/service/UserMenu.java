@@ -66,7 +66,7 @@ public class UserMenu implements AppStart{
 					userRepository.SelectNumber(MenuList, user);
 					break;
 				case 4://로그아웃
-					
+					System.out.println("♡♡♡♡ 로그아웃 되었습니다 ♡♡♡♡");
 					return;
 
 				default:

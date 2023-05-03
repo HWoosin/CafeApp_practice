@@ -191,6 +191,7 @@ public class MenuRepository {
 		try(Connection conn = connection.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(deleteSql);) {
 			pstmt.executeUpdate();
+			System.out.println();
 			System.out.println("＿人人人人人人人人人人人人人人人人＿\r\n"
 					+ "＞　결제실패로 주문목록에서 사라집니다.　＜\r\n"
 					+ "￣Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y￣\r\n"
