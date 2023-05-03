@@ -26,9 +26,9 @@ public class UserMenu implements AppStart{
 	@Override
 	public void start() {
 		login();
-		while(true) {
+		if(userRepository.loginUser(user)==1) {
+			while(true) {
 //			login();
-			if(userRepository.loginUser(user)==1) {
 				AppUI.userMenu();
 				int selection = inputInteger();
 				switch (selection) {
@@ -74,9 +74,9 @@ public class UserMenu implements AppStart{
 				}
 				
 			}
-			else {//로그인실패이므로 while을 중지하고 처음메뉴로 나감
-				return;
-			}
+		}
+		else {//로그인실패이므로 while을 중지하고 처음메뉴로 나감
+			return;
 		}
 
 		
