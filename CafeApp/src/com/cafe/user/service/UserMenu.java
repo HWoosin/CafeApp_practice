@@ -13,7 +13,7 @@ import com.cafe.user.domain.User;
 import com.cafe.user.repository.UserRepository;
 import com.cafe.view.AppUI;
 
-public class UserLogin implements AppStart{
+public class UserMenu implements AppStart{
 	public final UserRepository userRepository = new UserRepository();
 	public final MenuRepository menuRepository = new MenuRepository();
 	User user = new User();
@@ -23,7 +23,6 @@ public class UserLogin implements AppStart{
 	MenuList MenuList = new MenuList(); 
 	
 	String ID ="";
-	String Who_order="";
 	@Override
 	public void start() {
 		login();
@@ -64,7 +63,6 @@ public class UserLogin implements AppStart{
 					break;
 					
 				case 3://주문조회
-//					findorder();
 					userRepository.SelectNumber(MenuList, user);
 					break;
 				case 4://로그아웃
