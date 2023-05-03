@@ -13,23 +13,38 @@ import com.cafe.user.domain.User;
 public class UserRepository {
 
 	private DBConnect connection = DBConnect.getInstance();
+	private DBConnect connection2 = DBConnect.getInstance();
 
 	// 회원가입
 	public void addUser(User user) {
 		System.out.println("확인하기::::" + user);
 		String insertSql = "INSERT INTO cafeUser (user_ID, user_PW, user_name, user_phone)" + "VALUES(?,?,?,?)";
-		try (Connection conn = connection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(insertSql)) {
+		String selectSql = "SELECT user_id from cafeUser where user_id = ?";
+		try (Connection conn = connection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(insertSql);
+				Connection conn2 = connection2.getConnection(); PreparedStatement pstmt2 = conn2.prepareStatement(selectSql)) {
 			pstmt.setString(1, user.getUserID());
 			pstmt.setString(2, user.getUserPW());
 			pstmt.setString(3, user.getUserName());
 			pstmt.setString(4, user.getUserPhone());
-
-			if (pstmt.executeUpdate() == 1) {
-				System.out.println(user.getUserName() + "님 가입이 완료되었습니다!.");
-			} else {
-				System.out.println("회원가입에 실패했습니다.");
+			
+			pstmt2.setString(1,user.getUserID());
+			ResultSet rs = pstmt2.executeQuery();
+			
+//			System.out.println(rs.next());
+			if(rs.next()) {
+				System.out.println("중복된 아이디 입니다!");
+				return;
 			}
+			else {
+				if (pstmt.executeUpdate() == 1) {
+					System.out.println(user.getUserName() + "님 가입이 완료되었습니다!.");
+				} else {
+					System.out.println("회원가입에 실패했습니다.");
+				}
+			}
+			
 		} catch (Exception e) {
+			System.out.println("회원가입에 실패했습니다.DB오류");
 		}
 	}
 
