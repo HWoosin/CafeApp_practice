@@ -58,7 +58,17 @@ public class UserRepository {
 
 			if (rs.next()) {
 				if (rs.getString(1).contentEquals(user.getUserPW())) {
-					System.out.println("\n♥♥♥♥♥ " + rs.getString(2) + "님 환영합니다! ♥♥♥♥♥");
+					System.out.println("╭ ◜◝ ͡ ◜◝ ͡ ◜◝ ͡ ◜◝ ͡ ◜◝ ╮\r\n"
+							+ "      ♡ "+rs.getString(2)+ "님 ♡\r\n"
+							+ "      ♡ 환영합니다! ♡\r\n"
+							+ "╰ ◟◞ ͜ ◟ ͜ ◟◞ ͜ ◟ ͜ ◟◞ ╯\r\n"
+							+ "⠀⠀⠀⠀O\r\n"
+							+ "⠀⠀⠀⠀⠀°\r\n"
+							+ "〃o　 (\\＿(\\\r\n"
+							+ "‎⊂⌒（ ´ • ﻌ •）\r\n"
+							+ "ヽ_っ＿/￣￣￣/\r\n"
+							+ "　 　 ＼/＿＿＿/\r\n"
+							+ "");
 					user.setUserPoint(rs.getInt(3));// 유저의 포인트를 끌고 와야 나중에 계산할때 쓸수있다.	
 //					return 1;
 				}
