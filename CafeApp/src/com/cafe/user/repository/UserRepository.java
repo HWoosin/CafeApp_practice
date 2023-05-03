@@ -58,6 +58,7 @@ public class UserRepository {
 
 			if (rs.next()) {
 				if (rs.getString(1).contentEquals(user.getUserPW())) {
+					System.out.println();
 					System.out.println("╭ ◜◝ ͡ ◜◝ ͡ ◜◝ ͡ ◜◝ ͡ ◜◝ ╮\r\n"
 							+ "      ♡ "+rs.getString(2)+ "님 ♡\r\n"
 							+ "      ♡ 환영합니다! ♡\r\n"
