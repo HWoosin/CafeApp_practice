@@ -241,6 +241,7 @@ public class MenuRepository {
 				pstmt3.setString(2,user.getUserID());
 				System.out.println("결제완료! 남은 포인트"+result);
 				pstmt3.executeUpdate();
+				user.setUserPoint(result);
 				return 1;
 			}
 			else {
