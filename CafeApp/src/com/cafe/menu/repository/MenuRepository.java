@@ -125,14 +125,16 @@ public class MenuRepository {
 	//카드결제시 포인트 부여
 	public void givePoint(Menu menu, User user) {
 		String updateSql = "Update cafeUser set user_point = ? where user_id =?";
-		try(Connection conn = connection2.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(updateSql)) {
-
+		try(Connection conn = connection.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(updateSql)){
+				
 				int price = menu.getPrice();
 				int earnPoint = (int)(price *0.1);
-				
-				pstmt.setInt(1, user.getUserPoint()+earnPoint);
-				pstmt.setString(2, user.getUserID());
+				int result =user.getUserPoint()+earnPoint;
+
+				pstmt.setInt(1, user.getUserPoint()+earnPoint );
+				pstmt.setString(2, user.getUserID());	
+				user.setUserPoint(result);
 				
 				if(pstmt.executeUpdate()==1)
 				System.out.println("포인트 "+earnPoint+"점 이 지급되었습니다.");
